@@ -549,17 +549,31 @@ var result = await this.orderService.GetOrderAsync(orderId);
 return this.Ok(this.mapper.Map<FullOrderModel>(result));
 ```
 
-9. Commit "Add AutoMapper. Add mapping profile OrderServiceMappingProfile for OrdersService. Add mappings to OrdersController and OrdersVersion2Controller.", merge.
+9. Соберите и проверьте работоспособность приложения.
 
-### Использование внешнего DI-контейнера (повышенная сложность)
+10. Commit "Add AutoMapper. Add mapping profile OrderServiceMappingProfile for OrdersService. Add mappings to OrdersController and OrdersVersion2Controller.", merge.
 
-#### Материалы для изучения
 
-* [Using Autofac Instead of Inbuilt DI Container in Asp.Net Core MVC](http://www.codedigest.com/posts/49/using-autofac-instead-of-inbuilt-di-container-with-in-aspnet-core-mvc)
-* [Replacing the Inbuilt DI Container with StructureMap in Asp.Net Core MVC](http://www.codedigest.com/posts/40/replacing-the-inbuilt-di-container-with-structuremap-in-aspnet-core-mvc)
-* [Configuration Comparison of Dependency Injection Containers (IOC)](https://codingsight.com/configuation-comparison-dependency-injection-containers/)
-* [.NET Core project without Autofac. Is it viable?](https://alex-klaus.com/webapi-proj-without-autofac/)
+### Проверка
 
-#### Выполнение
+* Проверьте список веток.
 
-TODO
+```sh
+$ git branch
+* master
+  step1-create-basic-app
+  step2-configure-project
+  step3-add-service
+  step4-add-configuration
+  step5-add-swagger
+  step6-add-versioning
+  step7-add-logging
+  step8-add-automapper
+```
+
+* Проверьте, что все ветки слиты в master с помощью no fast forward.
+* Проверьте функциональность приложения:
+[api/v1/orders](https://localhost:5001/api/v1/orders) - возвращает сокращенный список заказов версии 1.
+[api/v1/orders/10248](https://localhost:5001/api/v1/orders/10248) - возвращает заказ #10248.
+[api/v2/orders](https://localhost:5001/api/v2/orders) - возвращает сокращенный список заказов версии 2.
+[api/v2/orders/10248](https://localhost:5001/api/v2/orders/10248) - возвращает заказ #10248.
