@@ -24,6 +24,12 @@ $ dotnet --list-sdks
 
 Рабочая версия приложения для версии .NET Core 3 находится в каталоге [northwind-basic-app-final-3](./northwind-basic-app-final-3). Код этого приложения может быть использован в случае возникновения проблем при использовании этого руководства.
 
+### Требуемые программы
+
+* [.NET Core](https://dotnet.microsoft.com/download)
+* [Visual Studio Code](https://code.visualstudio.com/). Допустимо использовать [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) при сохранении подхода, описанного в данном руководстве. 
+* [Git](https://git-scm.com/downloads)
+
 
 ### Шаг 1. Создание базового приложения ASP.NET Core
 
