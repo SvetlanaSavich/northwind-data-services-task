@@ -63,6 +63,7 @@ $ git push
 #### Материалы для изучения
 
 * [.NET Core, Code Analysis and StyleCop](https://carlos.mendible.com/2017/08/24/net-core-code-analysis-and-stylecop)
+* [Automated, portable code style checking in .NET Core projects](https://blog.markvincze.com/automated-portable-code-style-checking-in-net-core-projects/)
 * [Configuring StyleCop Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md)
 * [Overview of code analysis for managed code in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/code-quality/code-analysis-for-managed-code-overview)
 * [Create portable, custom editor settings with EditorConfig](https://docs.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options)
@@ -83,9 +84,9 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.Code
 $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analyzers
 ```
 
-3. Скопируйте файл [code-analysis.ruleset](task02/northwind-basic-app/NorthwindWebApiApp/code-analysis.ruleset) в каталог проекта.
+3. Скопируйте файл [code-analysis.ruleset](northwind-basic-app/NorthwindWebApiApp/code-analysis.ruleset) в каталог проекта.
 
-4. Добавьте файл правил code-analysis.ruleset и другие настройки в файл проекта [NorthwindWebApiApp.csproj](task02/northwind-basic-app/NorthwindWebApiApp/NorthwindWebApiApp.csproj).
+4. Добавьте файл правил code-analysis.ruleset и другие настройки в файл проекта [NorthwindWebApiApp.csproj](northwind-basic-app/NorthwindWebApiApp/NorthwindWebApiApp.csproj).
 
 ```xml
 <PropertyGroup>
@@ -95,9 +96,9 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analy
 </PropertyGroup>
 ```
 
-5. Скопируйте файл [stylecop.json](task02/northwind-basic-app/NorthwindWebApiApp/stylecop.json) в каталог проекта.
+5. Скопируйте файл [stylecop.json](northwind-basic-app/NorthwindWebApiApp/stylecop.json) в каталог проекта.
 
-6. Добавьте файл правил stylecop.json в файл проекта [NorthwindWebApiApp.csproj](task02/northwind-basic-app/NorthwindWebApiApp/NorthwindWebApiApp.csproj).
+6. Добавьте файл правил stylecop.json в файл проекта [NorthwindWebApiApp.csproj](northwind-basic-app/NorthwindWebApiApp/NorthwindWebApiApp.csproj).
 
 ```xml
 <ItemGroup>
@@ -111,27 +112,27 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analy
 $ dotnet build                                                                                                     Microsoft (R) Build Engine version 16.3.0-preview-19329-01+d31fdbf01 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-  Restore completed in 30.55 ms for D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj.
+  Restore completed in 30.55 ms for D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj.
   You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview
-Program.cs(12,18): error CA1052: Type 'Program' is a static holder type but is neither static nor NotInheritable [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
-Program.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
-Startup.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
-Startup.cs(17,21): warning CA1822: Member ConfigureServices does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\North
+Program.cs(12,18): error CA1052: Type 'Program' is a static holder type but is neither static nor NotInheritable [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Program.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(17,21): warning CA1822: Member ConfigureServices does not access instance data and can be marked as static (Shared in VisualBasic) [D:\northwind-basic-app\NorthwindWebApiApp\North
 windWebApiApp.csproj]
-Startup.cs(22,21): warning CA1822: Member Configure does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebA
+Startup.cs(22,21): warning CA1822: Member Configure does not access instance data and can be marked as static (Shared in VisualBasic) [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebA
 piApp.csproj]
-Startup.cs(35,27): warning CA2007: Consider calling ConfigureAwait on the awaited task [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(35,27): warning CA2007: Consider calling ConfigureAwait on the awaited task [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
 
 Build FAILED.
 
-Program.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
-Startup.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
-Startup.cs(17,21): warning CA1822: Member ConfigureServices does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\North
+Program.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(17,21): warning CA1822: Member ConfigureServices does not access instance data and can be marked as static (Shared in VisualBasic) [D:\northwind-basic-app\NorthwindWebApiApp\North
 windWebApiApp.csproj]
-Startup.cs(22,21): warning CA1822: Member Configure does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebA
+Startup.cs(22,21): warning CA1822: Member Configure does not access instance data and can be marked as static (Shared in VisualBasic) [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebA
 piApp.csproj]
-Startup.cs(35,27): warning CA2007: Consider calling ConfigureAwait on the awaited task [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
-Program.cs(12,18): error CA1052: Type 'Program' is a static holder type but is neither static nor NotInheritable [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(35,27): warning CA2007: Consider calling ConfigureAwait on the awaited task [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Program.cs(12,18): error CA1052: Type 'Program' is a static holder type but is neither static nor NotInheritable [D:\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
     5 Warning(s)
     1 Error(s)
 
@@ -152,16 +153,26 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 #pragma warning restore CA1822
 ```
 
-9. Добавьте файлы в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
+9. Добавьте файлы в stage, сделайте commit.
 
 ```sh
 $ git status
 $ git add *.csproj *.cs *.xml *.json *.ruleset
 $ git commit -m "Configure project."
+```
+
+10. Создайте файл .editorconfig в верхнем каталоге и добавьте в него пример из [Example EditorConfig file](https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference). 
+
+11. Добавьте файл в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
+
+```sh
+$ git status
+$ git add *.editorconfig
+$ git commit -m "Add .editorconfig."
 $ git push --set-upstream origin step2-configure-project
 ```
 
-10. Переключитесь на ветку master и сделайте no fast-forward merge, опубликуйте изменения.
+12. Переключитесь на ветку master и сделайте no fast-forward merge, опубликуйте изменения.
 
 ```sh
 $ git checkout master
@@ -191,49 +202,25 @@ $ git checkout -b step3-add-service
 $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.Data.Services.Client
 ```
 
-3. Поместите [NorthwindDataService.cs](northwind-basic-app/NorthwindWebApiApp/ExternalServices/NorthwindDataService.cs) (версия 3) в папку NorthwindWebApiApp\ExternalServices.
+3. Поместите [NorthwindDataService.cs](northwind-basic-app/NorthwindWebApiApp/ExternalServices/NorthwindDataService.cs) (описание сервиса, которое сгенерировала утилита DataSvcUtil.exe, версия 3) в папку NorthwindWebApiApp\ExternalServices.
 
 4. Добавьте модели [BriefOrderModel.cs](northwind-basic-app/NorthwindWebApiApp/Models/BriefOrderModel.cs) и [FullOrderModel.cs](northwind-basic-app/NorthwindWebApiApp/Models/FullOrderModel.cs) в папку NorthwindWebApiApp\Models.
 
 5. Добавьте интерфейс и реализацию сервиса [IOrderService.cs](northwind-basic-app/NorthwindWebApiApp/Services/IOrderService.cs) и [OrderService.cs](northwind-basic-app/NorthwindWebApiApp/Services/OrderService.cs) в папку NorthwindWebApiApp\Services.
 
-6. Добавьте новый контроллер [OrdersController](northwind-basic-app/NorthwindWebApiApp/Controllers/OrdersController.cs) в папку NorthwindWebApiApp\Controllers. Добавьте асинхронные actions:
+6. Добавьте новый контроллер [OrdersController](northwind-basic-app/NorthwindWebApiApp/Controllers/OrdersController.cs) в папку NorthwindWebApiApp\Controllers. В контроллере определены следующие actions:
 
-* GetOrders - должен возвращать список всех заказов в кратком формате BriefOrderDescription.
-* GetOrder(int orderId) - должен возвращать подробную информацию о заказе с указанным orderId в полном формате FullOrderDescription.
+* GetOrders - возвращает список всех заказов в кратком формате.
+* GetOrder(int orderId) - возвращает подробную информацию о заказе с указанным orderId в полном формате.
 
-Список endpoins, глаголов и статусов приведен в таблице:
+Список endpoins, глаголов и статусов контроллера в таблице:
 
-| Endpoint             | Http Verb | Status Codes |
-| -------------------- | --------- | ------------ |
-| /api/orders          | GET       | 200, 500     |
-| /api/orders/:orderId | GET       | 200, 500     |
+| Endpoint             | Http Verb | Status Codes                        |
+| -------------------- | --------- | ----------------------------------- |
+| /api/orders          | GET       | 200 (success), 500 (internal error) |
+| /api/orders/:orderId | GET       | 200 (success), 500 (internal error) |
 
-Пример кода:
-
-```cs
-[HttpGet]
-public async Task<ActionResult<IEnumerable<BriefOrderDescription>>> GetOrders()
-{
-	return Ok(await _orderService.GetOrdersAsync());
-}
-
-[HttpGet("{orderId}")]
-public async Task<ActionResult<FullOrderDescription>> GetOrder(int orderId)
-{
-	return Ok(await _orderService.GetOrderAsync(orderId));
-}
-```
-
-7. Зарегистрируйте сервис в [Startup.cs](northwind-basic-app/NorthwindWebApiApp/Startup.cs):
-
-```cs
-public void ConfigureServices(IServiceCollection services)
-{
-	services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-	services.AddScoped<IOrderService, OrderService>();
-}
-```
+7. Зарегистрируйте сервис в Startup.cs - см. код в [Startup.cs](northwind-basic-app/NorthwindWebApiApp/Startup.cs). Добавьте необходимый конфигурационный код в методы ConfigureServices и Configure, чтобы подключить контроллер. 
 
 8. Запустите и проверьте работоспособность приложения.
 
@@ -247,7 +234,7 @@ dotnet run --project NorthwindWebApiApp
 ```sh
 $ git status
 $ git add *.csproj *.cs
-$ git commit -m "Add service."
+$ git commit -m "Add service NorthwindDataService, OrderService, OrdersController."
 $ git push --set-upstream origin step3-add-service
 $ git checkout master
 $ git merge step3-add-service --no-ff
