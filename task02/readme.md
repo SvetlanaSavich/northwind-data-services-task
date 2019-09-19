@@ -7,41 +7,155 @@
 * Научиться использовать версионированный API.
 * Научиться документировать API.
 
-
-### Создание базового приложения ASP.NET Core
+Схема приложения:
 
 ![Overview](../images/task-02-basic-app.png)
 
+
+### Шаг 1. Создание базового приложения ASP.NET Core
 
 #### Материалы для изучения
 
 * [Create web APIs with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-2.2)
 * [Tutorial: Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.2&tabs=visual-studio)
+* [Учусь .NET Core](https://riptutorial.com/Download/dot-net-core-ru.pdf)
+
+#### Выполнение
+
+1. [Создайте](https://github.com/new) новый *private* репозиторий _northwind-basic-app_ и клонируйте его на локальный диск. При создании укажите настройку .gitignore - _VisualStudio_.
+
+2. Создайте в клонированном репозитории новую ветку _step1-create-basic-app_ и переключитесь на нее.
+
+```sh
+$ git checkout -b step1-create-basic-app
+```
+
+3. Создайте в каталоге клонированного репозитория новое приложение типа web с именем NorthwindWebApiApp.
+
+```sh
+$ dotnet new web -n NorthwindWebApiApp
+$ dotnet new sln -n NorthwindBasicApp
+$ dotnet sln NorthwindBasicApp.sln add NorthwindWebApiApp\NorthwindWebApiApp.csproj
+```
+
+4. Соберите проект, добавьте файлы в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
+
+```sh
+$ dotnet build
+$ git status
+$ git add *.cs *.csproj *.sln
+$ git commit -m "Create basic app."
+$ git push --set-upstream origin step1-create-basic-app
+```
+
+5. Переключитесь на ветку master и сделайте [no fast-forward merge](http://zencoder.ru/git/fast-forward-git/) изменений из ветки _step1-create-basic-app_. После этого опубликуйте изменения в удаленную ветку master.
+
+```sh
+$ git checkout master
+$ git merge step1-create-basic-app --no-ff
+$ git push
+```
+
+
+### Шаг 2. Настройка проекта
+
+#### Материалы для изучения
+
+* [.NET Core, Code Analysis and StyleCop](https://carlos.mendible.com/2017/08/24/net-core-code-analysis-and-stylecop)
+* [Configuring StyleCop Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md)
+* [Overview of code analysis for managed code in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/code-quality/code-analysis-for-managed-code-overview)
+* [Create portable, custom editor settings with EditorConfig](https://docs.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options)
+* [.NET coding convention settings for EditorConfig](https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference)
+
+#### Выполнение
+
+1. Создайте новую ветку _step2-configure-project_ и переключитесь на нее.
+
+```sh
+$ git checkout -b step2-configure-project
+```
+
+2. Добавьте пакеты для анализа кода - Microsoft.CodeAnalysis.FxCopAnalyzers и StyleCop.Analyzers.
+
+```sh
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.CodeAnalysis.FxCopAnalyzers
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analyzers
+```
+
+3. Скопируйте файл [code-analysis.ruleset](task02\northwind-basic-app\NorthwindWebApiApp\code-analysis.ruleset) в каталог проекта. 
+
+4. Добавьте файл правил code-analysis.ruleset и другие настройки в файл проекта [NorthwindWebApiApp.csproj](task02\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj).
+
+```xml
+<PropertyGroup>
+  <CodeAnalysisRuleSet>code-analysis.ruleset</CodeAnalysisRuleSet>
+  <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+  <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+</PropertyGroup>
+```
+
+5. Скопируйте файл [stylecop.json](task02\northwind-basic-app\NorthwindWebApiApp\stylecop.json) в каталог проекта.
+
+6. Добавьте файл правил stylecop.json в файл проекта [NorthwindWebApiApp.csproj](task02\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj).
+
+```xml
+<ItemGroup>
+  <AdditionalFiles Include="stylecop.json" />
+</ItemGroup>
+```
+
+7. Соберите проект и исправьте ошибки.
+
+```sh
+$ dotnet build
+```
+
+8. Добавьте файлы в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
+
+```sh
+$ git status
+$ git add *.csproj *.xml *.json *.ruleset
+$ git commit -m "Configure project."
+$ git push --set-upstream origin step2-configure-project
+```
+
+5. Переключитесь на ветку master и сделайте no fast-forward merge, опубликуйте изменения.
+
+```sh
+$ git checkout master
+$ git merge step2-configure-project --no-ff
+$ git push
+```
+
+
+### Шаг 3. Добавление сервиса
+
+#### Материалы для изучения
+
 * [How to: Add Query Options to a Data Service Query (WCF Data Services)](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-add-query-options-to-a-data-service-query-wcf-data-services)
 
 
 #### Выполнение
 
-1. Создайте новое приложение ASP.NET Core:
+1. Создайте новую ветку _step3-add-service_ и переключитесь на нее.
 
-```
-mkdir northwind-basic-app
-cd northwind-basic-app
-dotnet new webapi -n NorthwindWebApiApp
-dotnet new sln -n NorthwindBasicApp
-dotnet sln NorthwindBasicApp.sln add NorthwindWebApiApp\NorthwindWebApiApp.csproj
-dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.Data.Services.Client
-dotnet build
-dotnet run --project NorthwindWebApiApp
+```sh
+$ git checkout -b step3-add-service
 ```
 
-2. Поместите [NorthwindDataService.cs](northwind-basic-app/NorthwindWebApiApp/ExternalServices/NorthwindDataService.cs) (версия 3) в папку NorthwindWebApiApp\ExternalServices.
+2. Добавьте пакет [Microsoft.Data.Services.Client](https://www.nuget.org/packages/Microsoft.Data.Services.Client), чтобы добавить в приложение возможность работать с сервисами OData.
 
-3. Добавьте модели [BriefOrderModel.cs](northwind-basic-app/NorthwindWebApiApp/Models/BriefOrderModel.cs) и [FullOrderModel.cs](northwind-basic-app/NorthwindWebApiApp/Models/FullOrderModel.cs) в папку NorthwindWebApiApp\Models.
+```sh
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.Data.Services.Client
+```
 
-4. Добавьте интерфейс и реализацию сервиса [IOrderService.cs](northwind-basic-app/NorthwindWebApiApp/Services/IOrderService.cs) и [OrderService.cs](northwind-basic-app/NorthwindWebApiApp/Services/OrderService.cs) в папку NorthwindWebApiApp\Services.
+3. Поместите [NorthwindDataService.cs](northwind-basic-app/NorthwindWebApiApp/ExternalServices/NorthwindDataService.cs) (версия 3) в папку NorthwindWebApiApp\ExternalServices.
 
-5. Добавьте новый контроллер [OrdersController](northwind-basic-app/NorthwindWebApiApp/Controllers/OrdersController.cs) в папку NorthwindWebApiApp\Controllers. Добавьте асинхронные actions:
+4. Добавьте модели [BriefOrderModel.cs](northwind-basic-app/NorthwindWebApiApp/Models/BriefOrderModel.cs) и [FullOrderModel.cs](northwind-basic-app/NorthwindWebApiApp/Models/FullOrderModel.cs) в папку NorthwindWebApiApp\Models.
+
+5. Добавьте интерфейс и реализацию сервиса [IOrderService.cs](northwind-basic-app/NorthwindWebApiApp/Services/IOrderService.cs) и [OrderService.cs](northwind-basic-app/NorthwindWebApiApp/Services/OrderService.cs) в папку NorthwindWebApiApp\Services.
+
+6. Добавьте новый контроллер [OrdersController](northwind-basic-app/NorthwindWebApiApp/Controllers/OrdersController.cs) в папку NorthwindWebApiApp\Controllers. Добавьте асинхронные actions:
 
 * GetOrders - должен возвращать список всех заказов в кратком формате BriefOrderDescription.
 * GetOrder(int orderId) - должен возвращать подробную информацию о заказе с указанным orderId в полном формате FullOrderDescription.
@@ -69,7 +183,7 @@ public async Task<ActionResult<FullOrderDescription>> GetOrder(int orderId)
 }
 ```
 
-6. Зарегистрируйте сервис в [Startup.cs](northwind-basic-app/NorthwindWebApiApp/Startup.cs):
+7. Зарегистрируйте сервис в [Startup.cs](northwind-basic-app/NorthwindWebApiApp/Startup.cs):
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
@@ -79,15 +193,27 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-7. Запустите и проверьте работоспособность приложения.
+8. Запустите и проверьте работоспособность приложения.
 
 ```
 dotnet build
 dotnet run --project NorthwindWebApiApp
 ```
 
+9. Commit, merge.
 
-### Конфигурация сервиса
+```sh
+$ git status
+$ git add *.csproj *.cs
+$ git commit -m "Add service."
+$ git push --set-upstream origin step3-add-service
+$ git checkout master
+$ git merge step3-add-service --no-ff
+$ git push
+```
+
+
+### Шаг 4. Конфигурация сервиса
 
 #### Материалы для изучения
 
