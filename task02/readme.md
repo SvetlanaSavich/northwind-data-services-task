@@ -573,7 +573,11 @@ $ git branch
 
 * Проверьте, что все ветки слиты в master с помощью no fast forward.
 * Проверьте функциональность приложения:
+
 [api/v1/orders](https://localhost:5001/api/v1/orders) - возвращает сокращенный список заказов версии 1.
+
 [api/v1/orders/10248](https://localhost:5001/api/v1/orders/10248) - возвращает заказ #10248.
+
 [api/v2/orders](https://localhost:5001/api/v2/orders) - возвращает сокращенный список заказов версии 2.
+
 [api/v2/orders/10248](https://localhost:5001/api/v2/orders/10248) - возвращает заказ #10248.
