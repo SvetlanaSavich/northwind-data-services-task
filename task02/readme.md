@@ -18,6 +18,7 @@
 
 * [Create web APIs with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-2.2)
 * [Tutorial: Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.2&tabs=visual-studio)
+* Metanit: [Глава 2. Основы ASP.NET Core](https://metanit.com/sharp/aspnet5/2.13.php)
 * [Учусь .NET Core](https://riptutorial.com/Download/dot-net-core-ru.pdf)
 
 #### Выполнение
@@ -186,7 +187,8 @@ $ git push
 #### Материалы для изучения
 
 * [How to: Add Query Options to a Data Service Query (WCF Data Services)](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-add-query-options-to-a-data-service-query-wcf-data-services)
-
+* Metanit: [Глава 7. Контроллеры](https://metanit.com/sharp/aspnet5/5.1.php)
+* Metanit: [Глава 11. Модели](https://metanit.com/sharp/aspnet5/8.1.php)
 
 #### Выполнение
 
@@ -248,6 +250,8 @@ $ git push
 
 * [Configuration in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/)
 * [Getting value from appsettings.json in .net core](https://stackoverflow.com/questions/46940710/getting-value-from-appsettings-json-in-net-core)
+* Metanit: [Глава 3. Сервисы и Dependency Injection](https://metanit.com/sharp/aspnet5/6.1.php)
+* Metanit: [Глава 4. Конфигурация](https://metanit.com/sharp/aspnet5/2.6.php)
 
 #### Выполнение
 
