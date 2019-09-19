@@ -295,20 +295,40 @@ public void ConfigureServices(IServiceCollection services) {
 
 5. Добавьте в конструктор [OrderService](northwind-basic-app/NorthwindWebApiApp/OrderService.cs) параметр northwindServiceConfiguration и используйте его, чтобы инициализировать объект NorthwindEntities значением _Uri_ из конфигурационного файла.
 
-6. Commit, merge.
+6. Запустите и проверьте работоспособность приложения.
+
+7. Commit "Add configuration to appsettings.json.", merge.
 
 
-### Документирование сервиса
+### Шаг 5. Документирование сервиса
 
 #### Материалы для изучения
 
 * [ASP.NET Core web API help pages with Swagger / OpenAPI](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger)
 * [Get started with Swashbuckle and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle)
-
+* [What is Swagger, Swashbuckle and Swashbuckle UI](https://stackoverflow.com/questions/43441683/what-is-swagger-swashbuckle-and-swashbuckle-ui)
 
 #### Выполнение
 
-TODO
+1. Создайте новую ветку _step5-add-swagger_ и переключитесь на нее.
+
+2. Добавьте пакет [Swashbuckle.AspNetCore](https://www.nuget.org/packages/swashbuckle.aspnetcore/). Если используется .NET Core 3.0 укажите последнюю доступную RC версию пакета, так как версия 3.0 на текущий момент находиться в preview.
+
+```sh
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Swashbuckle.AspNetCore --version 5.0.0-rc2
+```
+
+3. [Добавьте и сконфигурируйте Swagger middleware.](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio#add-and-configure-swagger-middleware)
+
+4. [Включите генерацию документации](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio#xml-comments) в файле проекта _NorthwindWebApiApp.csproj_.
+
+5. Включите поддержку [XML-документации в AddSwaggerGen](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio#xml-comments).
+
+6. Запустите и проверьте работоспособность приложения через [Swagger UI](http://locahost:5000/). Если консоль не доступна, проверьте localhost:5000/swagger.
+
+7. Для actions контроллера OrdersController добавьте XML-документацию, перекомпилируйте и запустите приложение. Проверьте, что документация отображается корректно на Swagger UI.
+
+8. Commit Add SwaggerUI console.", merge.
 
 
 ### Версионирование API
