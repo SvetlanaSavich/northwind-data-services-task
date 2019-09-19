@@ -2,59 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using NorthwindWebApiApp.Models;
 
 namespace NorthwindWebApiApp.Services
 {
-	public class OrderService : IOrderService
-	{
-		private readonly NorthwindModel.NorthwindEntities _entities;
+    public class OrderService : IOrderService
+    {
+        private readonly NorthwindModel.NorthwindEntities entities;
 
-		public OrderService()
-		{
-			_entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
-		}
+        public OrderService(IOptions<Configuration.NorthwindServiceConfiguration> northwindServiceConfiguration)
+        {
+            var uri = northwindServiceConfiguration == null ? throw new ArgumentNullException(nameof(northwindServiceConfiguration)) : northwindServiceConfiguration.Value.Uri;
+            this.entities = new NorthwindModel.NorthwindEntities(uri);
+        }
 
-		public async Task<IEnumerable<BriefOrderDescription>> GetOrdersAsync()
-		{
-			var orderTaskFactory = new TaskFactory<IEnumerable<NorthwindModel.Order>>();
-			var orders = (await orderTaskFactory.FromAsync(
-				_entities.Orders.BeginExecute(null, null), 
-				iar => _entities.Orders.EndExecute(iar)));
+        public async Task<IEnumerable<BriefOrderModel>> GetOrdersAsync()
+        {
+            var orderTaskFactory = new TaskFactory<IEnumerable<NorthwindModel.Order>>();
 
-			return orders.Select(o => new BriefOrderDescription
-			{
-				OrderId = o.OrderID,
-				OrderDate = o.OrderDate,
-				RequiredDate = o.RequiredDate
-			});
-		}
+            var orders = await orderTaskFactory.FromAsync(
+                this.entities.Orders.BeginExecute(null, null),
+                iar => this.entities.Orders.EndExecute(iar));
 
-		public async Task<FullOrderDescription> GetOrderAsync(int orderId)
-		{
-			var orderQueryTaskFactory = new TaskFactory<IEnumerable<NorthwindModel.Orders_Qry>>();
-			var query = _entities.Orders_Qries.AddQueryOption("$filter", $"OrderID eq {orderId}");
+            return orders.Select(o => new BriefOrderModel
+            {
+                OrderId = o.OrderID,
+                OrderDate = o.OrderDate,
+                RequiredDate = o.RequiredDate,
+            }).ToArray();
+        }
 
-			var orders = (await orderQueryTaskFactory.FromAsync(
-				query.BeginExecute(null, null),
-				iar => query.EndExecute(iar))).ToArray();
+        public async Task<FullOrderModel> GetOrderAsync(int orderId)
+        {
+            var orderQueryTaskFactory = new TaskFactory<IEnumerable<NorthwindModel.Orders_Qry>>();
+            var query = this.entities.Orders_Qries.AddQueryOption("$filter", $"OrderID eq {orderId}");
 
-			var order = orders.FirstOrDefault();
+            var orders = (await orderQueryTaskFactory.FromAsync(
+                query.BeginExecute(null, null),
+                iar => query.EndExecute(iar))).ToArray();
 
-			if (order == null)
-			{
-				return null;
-			}
+            var order = orders.FirstOrDefault();
 
-			return new FullOrderDescription
-			{
-				OrderId = order.OrderID,
-				CustomerId = order.CustomerID,
-				EmployeeId = order.EmployeeID,
-				OrderDate = order.OrderDate,
-				RequiredDate = order.RequiredDate,
-				ShipVia = order.ShipVia
-			};
-		}
-	}
+            if (order == null)
+            {
+                return null;
+            }
+
+            return new FullOrderModel
+            {
+                OrderId = order.OrderID,
+                CustomerId = order.CustomerID,
+                EmployeeId = order.EmployeeID,
+                OrderDate = order.OrderDate,
+                RequiredDate = order.RequiredDate,
+                ShipVia = order.ShipVia,
+            };
+        }
+    }
 }

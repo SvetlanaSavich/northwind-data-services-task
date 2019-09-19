@@ -7,27 +7,27 @@ using NorthwindWebApiApp.Services;
 
 namespace NorthwindWebApiApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class OrdersController : ControllerBase
-	{
-		private readonly IOrderService _orderService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OrdersController : ControllerBase
+    {
+        private readonly IOrderService orderService;
 
-		public OrdersController(IOrderService orderService)
-		{
-			_orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
-		}
+        public OrdersController(IOrderService orderService)
+        {
+            this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+        }
 
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<BriefOrderDescription>>> GetOrders()
-		{
-			return Ok(await _orderService.GetOrdersAsync());
-		}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BriefOrderModel>>> GetOrders()
+        {
+            return this.Ok(await this.orderService.GetOrdersAsync());
+        }
 
-		[HttpGet("{orderId}")]
-		public async Task<ActionResult<FullOrderDescription>> GetOrder(int orderId)
-		{
-			return Ok(await _orderService.GetOrderAsync(orderId));
-		}
-	}
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<FullOrderModel>> GetOrder(int orderId)
+        {
+            return this.Ok(await this.orderService.GetOrderAsync(orderId));
+        }
+    }
 }

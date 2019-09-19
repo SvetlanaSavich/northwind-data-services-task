@@ -1,13 +1,13 @@
-﻿using NorthwindWebApiApp.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using NorthwindWebApiApp.Models;
 
 namespace NorthwindWebApiApp.Services
 {
-	public interface IOrderService
-	{
-		Task<IEnumerable<BriefOrderDescription>> GetOrdersAsync();
+    public interface IOrderService
+    {
+        Task<IEnumerable<BriefOrderModel>> GetOrdersAsync();
 
-		Task<FullOrderDescription> GetOrderAsync(int orderId);
-	}
+        Task<FullOrderModel> GetOrderAsync(int orderId);
+    }
 }
