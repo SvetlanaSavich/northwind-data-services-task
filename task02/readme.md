@@ -491,16 +491,65 @@ public async Task<IEnumerable<BriefOrderModel>> GetOrdersAsync()
 13. Commit "Add serilog.", merge.
 
 
-#### Ведение журнала работы сервиса (логирование)
-
-
-### Использование Automapper
+### Шаг 8. Добавление Automapper
 
 #### Материалы для изучения
 
+* [AutoMapper Documentation](https://docs.automapper.org/en/stable/)
+* [How to set up Automapper in ASP.NET Core](https://stackoverflow.com/questions/40275195/how-to-set-up-automapper-in-asp-net-core)
+
 #### Выполнение
 
+1. Создайте новую ветку _step8-add-automapper_ и переключитесь на нее.
 
+2. Добавьте пакеты [AutoMapper](https://www.nuget.org/packages/AutoMapper/) и [AutoMapper.Extensions.Microsoft.DependencyInjection](https://www.nuget.org/packages/AutoMapper.Extensions.Microsoft.DependencyInjection/).
+
+3. Добавьте новые классы в каталог Service - _BriefOrderDescription_, _BriefOrderVersion2Description_ и _FullOrderDescription_. Содержимое должно быть копией соответствующих моделей.
+
+4. Измените классы _IOrderService_ и _OrderService_, чтобы сервис возвращал объекты новых классов.
+
+5. Добавьте новый файл MappingProfiles\OrderServiceMappingProfile.cs с настройками AutoMapper.
+
+```cs
+public class OrderServiceMappingProfile : Profile
+{
+    public OrderServiceMappingProfile()
+    {
+        Console.WriteLine("OrderServiceMappingProfile");
+
+        this.CreateMap<BriefOrderDescription, BriefOrderModel>();
+        this.CreateMap<BriefOrderVersion2Description, BriefOrderVersion2Model>();
+        this.CreateMap<FullOrderDescription, FullOrderModel>();
+    }
+```
+
+6. Настройте AutoMapper в методе [Startup.ConfigureServices](https://stackoverflow.com/questions/40275195/how-to-set-up-automapper-in-asp-net-core).
+
+7. Добавьте параметр mapper в конструкторы контроллеров и сохраните его в поле.
+
+Пример кода:
+
+```cs
+public OrdersController(IOrderService orderService, ILogger<OrdersController> logger, IMapper mapper)
+{
+	...
+    this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+}
+```
+
+8. Измените код actions, чтобы объекты преобразовывались автоматически.
+
+Пример кода:
+
+```cs
+var result = await this.orderService.GetOrdersAsync();
+return this.Ok(this.mapper.Map<BriefOrderModel[]>(result));
+
+var result = await this.orderService.GetOrderAsync(orderId);
+return this.Ok(this.mapper.Map<FullOrderModel>(result));
+```
+
+9. Commit "Add AutoMapper. Add mapping profile OrderServiceMappingProfile for OrdersService. Add mappings to OrdersController and OrdersVersion2Controller.", merge.
 
 ### Использование внешнего DI-контейнера (повышенная сложность)
 
@@ -510,3 +559,7 @@ public async Task<IEnumerable<BriefOrderModel>> GetOrdersAsync()
 * [Replacing the Inbuilt DI Container with StructureMap in Asp.Net Core MVC](http://www.codedigest.com/posts/40/replacing-the-inbuilt-di-container-with-structuremap-in-aspnet-core-mvc)
 * [Configuration Comparison of Dependency Injection Containers (IOC)](https://codingsight.com/configuation-comparison-dependency-injection-containers/)
 * [.NET Core project without Autofac. Is it viable?](https://alex-klaus.com/webapi-proj-without-autofac/)
+
+#### Выполнение
+
+TODO
