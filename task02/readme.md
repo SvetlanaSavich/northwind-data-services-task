@@ -224,16 +224,16 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.Data
 
 8. Запустите и проверьте работоспособность приложения.
 
-```
-dotnet build
-dotnet run --project NorthwindWebApiApp
+```sh
+$ dotnet build
+$ dotnet run --project NorthwindWebApiApp
 ```
 
 9. Commit, merge.
 
 ```sh
 $ git status
-$ git add *.csproj *.cs
+$ git add *.csproj *.cs *.xml
 $ git commit -m "Add service NorthwindDataService, OrderService, OrdersController."
 $ git push --set-upstream origin step3-add-service
 $ git checkout master
@@ -242,15 +242,56 @@ $ git push
 ```
 
 
-### Шаг 4. Конфигурация сервиса
+### Шаг 4. Конфигурация сервиса через IOption<T>
 
 #### Материалы для изучения
 
 * [Configuration in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/)
+* [Getting value from appsettings.json in .net core](https://stackoverflow.com/questions/46940710/getting-value-from-appsettings-json-in-net-core)
 
 #### Выполнение
 
-TODO
+1. Создайте новую ветку _step4-add-configuration_ и переключитесь на нее.
+
+2. Добавьте в файл appsettings.json новую секцию _NorthwindServiceConfiguration_.
+
+```json
+"NorthwindServiceConfiguration": {
+  "Url": "https://services.odata.org/V3/Northwind/Northwind.svc"
+}
+```
+
+3. Добавьте новый класс NorthwindServiceConfiguration в каталог Configuration.
+
+```cs
+namespace NorthwindWebApiApp.Configuration
+{
+    public class NorthwindServiceConfiguration
+    {
+        public Uri Uri { get; set; }
+    }
+}
+```
+
+4. Добавьте код в класс Startup.
+
+```cs
+private IConfiguration configuration;
+
+public Startup(IConfiguration configuration)
+{
+	this.configuration = configuration;
+}
+
+public void ConfigureServices(IServiceCollection services) {
+	...
+	services.Configure<Configuration.NorthwindServiceConfiguration>(this.configuration.GetSection("NorthwindServiceConfiguration"));
+}
+```
+
+5. Добавьте в конструктор OrderService параметр IOptions<Configuration.NorthwindServiceConfiguration> northwindServiceConfiguration и используйте его, чтобы инициализировать объект NorthwindEntities значением Url из конфигурационного файла.
+
+6. Commit, merge.
 
 
 ### Документирование сервиса
