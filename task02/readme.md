@@ -402,18 +402,87 @@ public class OrdersVersion2Controller : ControllerBase
 12. Commit "Add OrdersVersion2Controller.", merge.
 
 
+### Шаг 7. Журналирование работы приложения
+
 #### Материалы для изучения
 
 * [Logging in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging)
-* [Логгирование](https://metanit.com/sharp/aspnet5/2.10.php)
-* [Логгирование в ASP.NET Core](https://blog.zwezdin.com/2017/asp-net-core-logging/)
+* Metanit: [Логгирование](https://metanit.com/sharp/aspnet5/2.10.php)
+* [Logging in ASP .NET Core](https://wakeupandcode.com/logging-in-asp-net-core/)
 * [Логирование как способ отлаживать код](https://habr.com/ru/post/354962/)
-* [Структурное логирование на примере Serilog и Seq](https://habr.com/ru/post/266299/)
-* [Документация serilog](https://serilog.net/)
 
 #### Выполнение
 
-TODO
+1. Создайте новую ветку _step7-add-logging_ и переключитесь на нее.
+
+
+2. Измените конфигурацию журналирования по-умолчанию в методе Program.CreateHostBuilder.
+
+```cs
+.ConfigureLogging(config =>
+{
+    config.ClearProviders();
+    config.AddConsole();
+    config.AddDebug();
+});
+``` 
+
+3. Добавьте в конструкторы контроллеров _OrdersController_ и _OrdersVersion2Controller_ параметр ILogger<T>, сохраните логер в поле.
+
+Пример кода:
+
+```cs
+public class OrdersController : ControllerBase
+{
+    private readonly ILogger<OrdersController> logger;
+
+    public OrdersController(IOrderService orderService, ILogger<OrdersController> logger)
+    {
+        this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+```
+
+4. Добавьте журналирование во все actions.
+
+Пример кода:
+
+```cs
+public async Task<ActionResult<IEnumerable<BriefOrderModel>>> GetOrders()
+{
+    this.logger.LogInformation("Calling OrdersController.GetOrders");
+    try
+    {
+        return this.Ok(await this.orderService.GetOrdersAsync());
+    }
+    catch (Exception e)
+    {
+        this.logger.LogError(e, "Exception in OrdersController.GetOrders.");
+        throw;
+    }
+}
+```
+
+5. Соберите и запустите приложение. Проверьте, что при выполнении запроса в консоль попадает журналируемый текст.
+
+6. Добавьте логер в конструктор _OrderService_ и добавьте в методы сервиса информацию о вызове удаленного сервиса.
+
+Пример кода:
+
+```cs
+public async Task<IEnumerable<BriefOrderModel>> GetOrdersAsync()
+{
+    this.logger.LogDebug($"Getting data from ${this.uri.AbsoluteUri}.");
+```
+
+7. Соберите и запустите приложение. Проверьте, что при выполнении запроса в консоль попадает журналируемый текст.
+
+8. Commit "Add logging for OrdersController, OrdersVersion2Controller and OrderService."
+
+* [Структурное логирование на примере Serilog и Seq](https://habr.com/ru/post/266299/)
+* [Документация serilog](https://serilog.net/)
+
+2. Добавьте пакет [Serilog.AspNetCore](https://www.nuget.org/packages/Serilog.AspNetCore/).
 
 
 #### Ведение журнала работы сервиса (логирование)
