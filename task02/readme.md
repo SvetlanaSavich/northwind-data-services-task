@@ -410,11 +410,12 @@ public class OrdersVersion2Controller : ControllerBase
 * Metanit: [Логгирование](https://metanit.com/sharp/aspnet5/2.10.php)
 * [Logging in ASP .NET Core](https://wakeupandcode.com/logging-in-asp-net-core/)
 * [Логирование как способ отлаживать код](https://habr.com/ru/post/354962/)
+* [Структурное логирование на примере Serilog и Seq](https://habr.com/ru/post/266299/)
+* [Документация serilog](https://serilog.net/)
 
 #### Выполнение
 
 1. Создайте новую ветку _step7-add-logging_ и переключитесь на нее.
-
 
 2. Измените конфигурацию журналирования по-умолчанию в методе Program.CreateHostBuilder.
 
@@ -479,10 +480,15 @@ public async Task<IEnumerable<BriefOrderModel>> GetOrdersAsync()
 
 8. Commit "Add logging for OrdersController, OrdersVersion2Controller and OrderService."
 
-* [Структурное логирование на примере Serilog и Seq](https://habr.com/ru/post/266299/)
-* [Документация serilog](https://serilog.net/)
+9. Добавьте пакет [Serilog.AspNetCore](https://www.nuget.org/packages/Serilog.AspNetCore/).
 
-2. Добавьте пакет [Serilog.AspNetCore](https://www.nuget.org/packages/Serilog.AspNetCore/).
+10. Добавьте поддержку Serilog в [методы Program.Main и Program.CreateHostBuilder](https://github.com/serilog/serilog-aspnetcore).
+
+11. Удалите секцию _Logging_ из конфигурационных файлов _appsettings.json_ и _appsettings.Development.json_.
+
+12. Соберите и запустите приложение. Проверьте, что вывод журнала в консоль изменился.
+
+13. Commit "Add serilog.", merge.
 
 
 #### Ведение журнала работы сервиса (логирование)
