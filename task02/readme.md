@@ -43,7 +43,7 @@ $ dotnet sln NorthwindBasicApp.sln add NorthwindWebApiApp\NorthwindWebApiApp.csp
 ```sh
 $ dotnet build
 $ git status
-$ git add *.cs *.csproj *.sln
+$ git add *.cs *.csproj *.sln *.json
 $ git commit -m "Create basic app."
 $ git push --set-upstream origin step1-create-basic-app
 ```
@@ -53,6 +53,7 @@ $ git push --set-upstream origin step1-create-basic-app
 ```sh
 $ git checkout master
 $ git merge step1-create-basic-app --no-ff
+$ git log --oneline
 $ git push
 ```
 
@@ -82,9 +83,9 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.Code
 $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analyzers
 ```
 
-3. Скопируйте файл [code-analysis.ruleset](task02\northwind-basic-app\NorthwindWebApiApp\code-analysis.ruleset) в каталог проекта. 
+3. Скопируйте файл [code-analysis.ruleset](task02/northwind-basic-app/NorthwindWebApiApp/code-analysis.ruleset) в каталог проекта.
 
-4. Добавьте файл правил code-analysis.ruleset и другие настройки в файл проекта [NorthwindWebApiApp.csproj](task02\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj).
+4. Добавьте файл правил code-analysis.ruleset и другие настройки в файл проекта [NorthwindWebApiApp.csproj](task02/northwind-basic-app/NorthwindWebApiApp/NorthwindWebApiApp.csproj).
 
 ```xml
 <PropertyGroup>
@@ -94,9 +95,9 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analy
 </PropertyGroup>
 ```
 
-5. Скопируйте файл [stylecop.json](task02\northwind-basic-app\NorthwindWebApiApp\stylecop.json) в каталог проекта.
+5. Скопируйте файл [stylecop.json](task02/northwind-basic-app/NorthwindWebApiApp/stylecop.json) в каталог проекта.
 
-6. Добавьте файл правил stylecop.json в файл проекта [NorthwindWebApiApp.csproj](task02\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj).
+6. Добавьте файл правил stylecop.json в файл проекта [NorthwindWebApiApp.csproj](task02/northwind-basic-app/NorthwindWebApiApp/NorthwindWebApiApp.csproj).
 
 ```xml
 <ItemGroup>
@@ -104,22 +105,63 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package StyleCop.Analy
 </ItemGroup>
 ```
 
-7. Соберите проект и исправьте ошибки.
+7. Соберите проект.
 
 ```sh
-$ dotnet build
+$ dotnet build                                                                                                     Microsoft (R) Build Engine version 16.3.0-preview-19329-01+d31fdbf01 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 30.55 ms for D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj.
+  You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview
+Program.cs(12,18): error CA1052: Type 'Program' is a static holder type but is neither static nor NotInheritable [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Program.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(17,21): warning CA1822: Member ConfigureServices does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\North
+windWebApiApp.csproj]
+Startup.cs(22,21): warning CA1822: Member Configure does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebA
+piApp.csproj]
+Startup.cs(35,27): warning CA2007: Consider calling ConfigureAwait on the awaited task [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+
+Build FAILED.
+
+Program.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(1,1): warning SA1412: Store files as UTF-8 with byte order mark [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Startup.cs(17,21): warning CA1822: Member ConfigureServices does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\North
+windWebApiApp.csproj]
+Startup.cs(22,21): warning CA1822: Member Configure does not access instance data and can be marked as static (Shared in VisualBasic) [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebA
+piApp.csproj]
+Startup.cs(35,27): warning CA2007: Consider calling ConfigureAwait on the awaited task [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+Program.cs(12,18): error CA1052: Type 'Program' is a static holder type but is neither static nor NotInheritable [D:\Work\github\northwind-basic-app\NorthwindWebApiApp\NorthwindWebApiApp.csproj]
+    5 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:02.65
 ```
 
-8. Добавьте файлы в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
+8. Исправьте ошибки и предупреждения компилятора - [CA1052](https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1052-static-holder-types-should-be-sealed?view=vs-2019), [SA1412](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1412.md). Предупреждение [CA1822](https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1822-mark-members-as-static?view=vs-2019) не может быть исправлено, но предупреждение можно отключить в коде:
+
+```cs
+#pragma warning disable CA1822
+public void ConfigureServices(IServiceCollection services)
+{
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+}
+#pragma warning restore CA1822
+```
+
+9. Добавьте файлы в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
 
 ```sh
 $ git status
-$ git add *.csproj *.xml *.json *.ruleset
+$ git add *.csproj *.cs *.xml *.json *.ruleset
 $ git commit -m "Configure project."
 $ git push --set-upstream origin step2-configure-project
 ```
 
-5. Переключитесь на ветку master и сделайте no fast-forward merge, опубликуйте изменения.
+10. Переключитесь на ветку master и сделайте no fast-forward merge, опубликуйте изменения.
 
 ```sh
 $ git checkout master
@@ -232,7 +274,7 @@ TODO
 * [Get started with Swashbuckle and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle)
 
 
-#### Выполнение 
+#### Выполнение
 
 TODO
 
