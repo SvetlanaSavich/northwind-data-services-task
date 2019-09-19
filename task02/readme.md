@@ -181,7 +181,7 @@ $ git add *.csproj *.cs *.xml *.json *.ruleset
 $ git commit -m "Configure project."
 ```
 
-10. Создайте файл .editorconfig в каталоге проекта и добавьте в него пример из [Example EditorConfig file](https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference). 
+10. Создайте файл .editorconfig в каталоге проекта и добавьте в него пример из [Example EditorConfig file](https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference). Для Visual Studio Code установите extension [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
 11. Добавьте файл в stage, сделайте commit и опубликуйте изменения в удаленную ветку.
 
