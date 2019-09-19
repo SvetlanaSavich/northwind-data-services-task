@@ -257,11 +257,11 @@ $ git push
 
 1. Создайте новую ветку _step4-add-configuration_ и переключитесь на нее.
 
-2. Добавьте в файл appsettings.json новую секцию _NorthwindServiceConfiguration_.
+2. Добавьте в файл _appsettings.json_ новую секцию _NorthwindServiceConfiguration_.
 
 ```json
 "NorthwindServiceConfiguration": {
-  "Url": "https://services.odata.org/V3/Northwind/Northwind.svc"
+  "Uri": "https://services.odata.org/V3/Northwind/Northwind.svc"
 }
 ```
 
@@ -293,7 +293,7 @@ public void ConfigureServices(IServiceCollection services) {
 }
 ```
 
-5. Добавьте в конструктор OrderService параметр IOptions<Configuration.NorthwindServiceConfiguration> northwindServiceConfiguration и используйте его, чтобы инициализировать объект NorthwindEntities значением Url из конфигурационного файла.
+5. Добавьте в конструктор [OrderService](northwind-basic-app/NorthwindWebApiApp/OrderService.cs) параметр northwindServiceConfiguration и используйте его, чтобы инициализировать объект NorthwindEntities значением _Uri_ из конфигурационного файла.
 
 6. Commit, merge.
 
