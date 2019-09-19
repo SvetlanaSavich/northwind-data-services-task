@@ -61,14 +61,14 @@
 | Query Description                                                 | HTTP Verb | Url                        |
 | ----------------------------------------------------------------- | --------- | -------------------------- |
 | Get service metadata.                                             | GET       | /$metadata                 |
-| Get all customers.                                                | GET       | /Customers                 |
-| Get a customer with "ALFKI" id.                                   | GET       | /Customers('ALFKI')        |
-| Get all orders.                                                   | GET       | /Orders                    |
-| Get an order with "10248" id.                                     | GET       | /Orders(10248)             |
-| Get all orders for a customer with "ANATR" id.                    | GET       | /Customers('ANATR')/Orders |
-| Get a customer for an order with "10248" id.                      | GET       | /Orders(10248)/Customer    |
+| Get all customers.                                                | GET       |                            |
+| Get a customer with "ALFKI" id.                                   | GET       |                            |
+| Get all orders.                                                   | GET       |                            |
+| Get an order with "10248" id.                                     | GET       |                            |
+| Get all orders for a customer with "ANATR" id.                    | GET       |                            |
+| Get a customer for an order with "10248" id.                      | GET       |                            |
 
-TODO: Add more queries here or use Postman collection?
+Создайте самостоятельно еще минимум 5 сложных запросов и запишите их в таблицу.
 
 
 #### Дополнительные материалы
@@ -280,8 +280,3 @@ Console.ReadLine(); // breakpoint #2.3
 | #2.3       |             |                   |             |
 
 В чем разница между двумя подходами для брейкпоинтов #1.3 и #2.3?
-
-
-#### Создание клиента сервиса OData v4 для приложения .NET Core
-
-TODO
