@@ -337,6 +337,7 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Swashbuckle.As
 
 * [ASP.NET API Versioning](https://github.com/microsoft/aspnet-api-versioning)
 * [New Services Quick Start](https://github.com/microsoft/aspnet-api-versioning/wiki/New-Services-Quick-Start#aspnet-core)
+* [ASP.NET Core Examples](https://github.com/microsoft/aspnet-api-versioning/tree/master/samples/aspnetcore)
 
 #### Выполнение
 
