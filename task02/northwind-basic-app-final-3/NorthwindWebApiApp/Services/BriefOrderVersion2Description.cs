@@ -1,4 +1,4 @@
-namespace NorthwindWebApiApp.Services
+﻿namespace NorthwindWebApiApp.Services
 {
     public class BriefOrderVersion2Description : BriefOrderDescription
     {

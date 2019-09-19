@@ -23,7 +23,9 @@ namespace NorthwindWebApiApp
                 CreateHostBuilder(args).Build().Run();
                 return 0;
             }
+#pragma warning disable CA1031
             catch (Exception ex)
+#pragma warning restore CA1031
             {
                 Log.Fatal(ex, "Host terminated unexpectedly");
                 return 1;
