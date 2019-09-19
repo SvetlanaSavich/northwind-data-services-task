@@ -4,12 +4,25 @@
 
 Цели:
 * Научиться создавать веб-приложения, используя ASP.NET Core.
-* Научиться использовать версионированный API.
-* Научиться документировать API.
+* Научиться создавать версионированный Web API.
+* Научиться создавать Swagger-документацию для Web API.
+* Научиться конфигурировать приложения ASP.NET Core.
+* Научиться журналировать работу приложения через встроенный логгер ASP.NET Core и Serilog.
+* Научиться автоматически трансформировать сущности в DTO с помощью AutoMapper.
+* Научиться использовать инструменты для автоматического анализа кода (StyleCop, FxCop analysers) и автоматической настройки IDE (.editorconfig).
 
 Схема приложения:
 
 ![Overview](../images/task-02-basic-app.png)
+
+Данное руководство создавалось для версии .NET Core 3, которая на текущий момент находится в preview, поэтому возможны расхождения с кодом для версии .NET Core 2 и финальной версией .NET Core 3.
+
+```sh
+$ dotnet --list-sdks
+3.0.100-preview7-012821 [C:\Program Files\dotnet\sdk]
+```
+
+Рабочая версия приложения для версии .NET Core 3 находится в каталоге [northwind-basic-app-final-3](northwind-basic-app-final-3\). Код этого приложения может быть использован в случае проблем, при прохождении этого руководства.
 
 
 ### Шаг 1. Создание базового приложения ASP.NET Core
@@ -293,7 +306,7 @@ public void ConfigureServices(IServiceCollection services) {
 }
 ```
 
-5. Добавьте в конструктор [OrderService](northwind-basic-app/NorthwindWebApiApp/OrderService.cs) параметр northwindServiceConfiguration и используйте его, чтобы инициализировать объект NorthwindEntities значением _Uri_ из конфигурационного файла.
+5. Добавьте в конструктор [OrderService](northwind-basic-app/NorthwindWebApiApp/Services/OrderService.cs) параметр northwindServiceConfiguration и используйте его, чтобы инициализировать объект NorthwindEntities значением _Uri_ из конфигурационного файла.
 
 6. Запустите и проверьте работоспособность приложения.
 
@@ -312,7 +325,13 @@ public void ConfigureServices(IServiceCollection services) {
 
 1. Создайте новую ветку _step5-add-swagger_ и переключитесь на нее.
 
-2. Добавьте пакет [Swashbuckle.AspNetCore](https://www.nuget.org/packages/swashbuckle.aspnetcore/). Если используется .NET Core 3.0 укажите последнюю доступную RC версию пакета, так как версия 3.0 на текущий момент находиться в preview.
+2. Добавьте пакет [Swashbuckle.AspNetCore](https://www.nuget.org/packages/swashbuckle.aspnetcore/). Если используется версия .NET Core 2.0, то версию указывать не обязательно.
+
+```sh
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Swashbuckle.AspNetCore
+```
+
+Если используется .NET Core 3.0, то укажите последнюю доступную RC версию пакета.
 
 ```sh
 $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Swashbuckle.AspNetCore --version 5.0.0-rc2
@@ -343,7 +362,13 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Swashbuckle.As
 
 1. Создайте новую ветку _step6-add-versioning_ и переключитесь на нее.
 
-2. Добавьте пакет [Microsoft.AspNetCore.Mvc.Versioning](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Versioning/). Если используется .NET Core 3.0 укажите последнюю доступную RC версию пакета, так как версия 3.0 на текущий момент находиться в preview.
+2. Добавьте пакет [Microsoft.AspNetCore.Mvc.Versioning](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Versioning/). Если используется версия .NET Core 2.0, то версию указывать не обязательно.
+
+```sh
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.AspNetCore.Mvc.Versioning
+```
+
+Если используется .NET Core 3.0 укажите последнюю доступную RC версию пакета.
 
 ```sh
 $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.AspNetCore.Mvc.Versioning --version 4.0.0-preview8.19405.7
