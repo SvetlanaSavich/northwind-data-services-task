@@ -324,27 +324,82 @@ $ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Swashbuckle.As
 
 5. Включите поддержку [XML-документации в AddSwaggerGen](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio#xml-comments).
 
-6. Запустите и проверьте работоспособность приложения через [Swagger UI](http://locahost:5000/). Если консоль не доступна, проверьте localhost:5000/swagger.
+6. Запустите и проверьте работоспособность приложения через [Swagger UI](http://locahost:5000/). Если консоль не доступна, проверьте localhost:5000/swagger. Если консоль доступна по этому endpoint, значит RoutePrefix в UseSwaggerUI не сконфигурирован корректно.
 
-7. Для actions контроллера OrdersController добавьте XML-документацию, перекомпилируйте и запустите приложение. Проверьте, что документация отображается корректно на Swagger UI.
+7. Проверьте, что документация отображается корректно на Swagger UI.
 
-8. Commit Add SwaggerUI console.", merge.
+8. Commit "Add SwaggerUI console.", merge.
 
 
-### Версионирование API
+### Шаг 6. Версионирование API
 
 #### Материалы для изучения
 
 * [ASP.NET API Versioning](https://github.com/microsoft/aspnet-api-versioning)
 * [New Services Quick Start](https://github.com/microsoft/aspnet-api-versioning/wiki/New-Services-Quick-Start#aspnet-core)
 
-
 #### Выполнение
 
-TODO
+1. Создайте новую ветку _step6-add-versioning_ и переключитесь на нее.
 
+2. Добавьте пакет [Microsoft.AspNetCore.Mvc.Versioning](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Versioning/). Если используется .NET Core 3.0 укажите последнюю доступную RC версию пакета, так как версия 3.0 на текущий момент находиться в preview.
 
-#### Ведение журнала работы сервиса (логирование)
+```sh
+$ dotnet add NorthwindWebApiApp\NorthwindWebApiApp.csproj package Microsoft.AspNetCore.Mvc.Versioning --version 4.0.0-preview8.19405.7
+```
+
+3. Добавьте поддержку версионирования в метод Startup.ConfigureServices.
+
+```cs
+services.AddApiVersioning(
+    options =>
+    {
+        // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
+        options.ReportApiVersions = true;
+    });
+```
+
+4. Установите версию 1.0 для контроллера OrdersController и добавьте поддержку версии в Uri.
+
+```cs
+[ApiController]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
+public class OrdersController : ControllerBase
+```
+
+5. Запустите и проверьте работоспособность приложения - [localhost/api/v1/orders](http://localhost:5000/api/v1/orders).
+
+6. Commit "Add versioning for OrdersController."
+
+7. Добавьте новую модель BriefOrderVersion2Model, которая должна расширять _BriefOrderModel_ двумя новыми полями - CustomerId и EmployeeId.
+
+```cs
+public class BriefOrderVersion2Model : BriefOrderModel
+{
+    public string CustomerId { get; set; }
+
+    public int? EmployeeId { get; set; }
+}
+```
+
+8. Расширьте интерфейс _IOrderService_ новым методом _GetExtendedOrdersAsync_, который должен возвращать список _BriefOrderVersion2Model_.
+
+9. Добавьте в сервис _OrderService_ реализацию метода _GetExtendedOrdersAsync_ по образцу _GetOrdersAsync_. Новый метод должен возвращать список _BriefOrderVersion2Model_ с заполненными полями _CustomerId_ и _EmployeeId_.
+
+10. Добавьте новый контроллер _OrdersVersion2Controller_, который должен в методе GetOrders возвращать список _BriefOrderVersion2Model_.
+
+```cs
+[ApiController]
+[ApiVersion("2.0")]
+[Route("api/v{version:apiVersion}/orders")]
+public class OrdersVersion2Controller : ControllerBase
+```
+
+11. Запустите и проверьте работоспособность приложения - [localhost/api/v2/orders](http://localhost:5000/api/v2/orders).
+
+12. Commit "Add OrdersVersion2Controller.", merge.
+
 
 #### Материалы для изучения
 
@@ -359,6 +414,8 @@ TODO
 
 TODO
 
+
+#### Ведение журнала работы сервиса (логирование)
 
 
 ### Использование Automapper
