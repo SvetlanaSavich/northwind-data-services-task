@@ -23,16 +23,16 @@
 | PK Table      | Cardinality PK Table | FK Table             | Cardinality FK Table | Relationship |
 | ------------- | -------------------- | -------------------- | -------------------- | ------------ |
 | shippers      | Zero-or-One          | orders               |  One-or-Many         | One-to-Many  |
-| employees     |                      | orders               |                      |              |
-| employees     |                      | employees            |                      |              |
-| employees     | -                    | territories          | -                    |              |
-| customers     |                      | orders               |                      |              |
-| customers     | -                    | customerdemographics | -                    |              |
-| orders        |                      | orderdetails         |                      |              |
-| products      |                      | orderdetails         |                      |              |
-| suppliers     |                      | products             |                      |              |
-| categories    |                      | products             |                      |              |
-| region        |                      | territories          |                      |              |
+| employees     | Zero-or-One          | orders               |  One-or-Many         | One-to-Many  |
+| employees     | Zero-or-One          | employees            |  One-or-Many         | One-to-Many  |
+| employees     | -                    | territories          | -                    | Many-to-Many |
+| customers     | Zero-or-One          | orders               |  One-or-Many         | One-to-Many  |
+| customers     | -                    | customerdemographics | -                    | Many-to-Many |
+| orders        | One                  | orderdetails         |  One-or-Many         | One-to-Many  |
+| products      | One                  | orderdetails         |  One-or-Many         | One-to-Many  |
+| suppliers     | Zero-or-One          | products             |  One-or-Many         | One-to-Many  |
+| categories    | Zero-or-One          | products             |  One-or-Many         | One-to-Many  |
+| region        | One                  | territories          |  One-or-Many         | One-to-Many  |
 
 3. Выясните тип отношений между таблицами базы данных. Заполните колонку Relationship в таблице выше. Используйте статью [Many-to-Many Relationship in the Northwind database](http://blog.codeontime.com/2012/04/many-to-many-relationship-in-northwind.html), чтобы найти связи типа "многие-ко-многим".
 
@@ -61,12 +61,17 @@
 | Query Description                                                 | HTTP Verb | Url                        |
 | ----------------------------------------------------------------- | --------- | -------------------------- |
 | Get service metadata.                                             | GET       | /$metadata                 |
-| Get all customers.                                                | GET       |                            |
-| Get a customer with "ALFKI" id.                                   | GET       |                            |
-| Get all orders.                                                   | GET       |                            |
-| Get an order with "10248" id.                                     | GET       |                            |
-| Get all orders for a customer with "ANATR" id.                    | GET       |                            |
-| Get a customer for an order with "10248" id.                      | GET       |                            |
+| Get all customers.                                                | GET       | /Customers                 |
+| Get a customer with "ALFKI" id.                                   | GET       | /Customers('ALFKI')        |
+| Get all orders.                                                   | GET       | /Orders                    |
+| Get an order with "10248" id.                                     | GET       | /Orders(10248)             |
+| Get all orders for a customer with "ANATR" id.                    | GET       | /Customers('ANATR')/Orders |
+| Get a customer for an order with "10248" id.                      | GET       | /Orders(10248)/Customer    |
+| Get a category name for a category with "3" id.                   | GET       | Categories(3)/CategoryName |
+| Get a products for a category with "3" id and filtered by  product name "Pavlova"| GET       |/Categories(3)/Products?$filter=ProductName eq 'Pavlova'|
+| Get an order with "10248" id.                                     | GET       | /Orders(10248)             |
+| Get all orders for a customer with "ANATR" id.                    | GET       | /Customers('ANATR')/Orders |
+| Get a customer for an order with "10248" id.                      | GET       | /Orders(10248)/Customer    |
 
 Создайте самостоятельно еще минимум 5 сложных запросов и запишите их в таблицу.
 
