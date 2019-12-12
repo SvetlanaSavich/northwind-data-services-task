@@ -67,11 +67,11 @@
 | Get an order with "10248" id.                                     | GET       | /Orders(10248)             |
 | Get all orders for a customer with "ANATR" id.                    | GET       | /Customers('ANATR')/Orders |
 | Get a customer for an order with "10248" id.                      | GET       | /Orders(10248)/Customer    |
-| Get a category name for a category with "3" id.                   | GET       | Categories(3)/CategoryName |
+| Get a category name for a category with "3" id.                   | GET       | /Categories(3)/CategoryName |
 | Get a products for a category with "3" id and filtered by  product name "Pavlova"| GET       |/Categories(3)/Products?$filter=ProductName eq 'Pavlova'|
-| Get an order with "10248" id.                                     | GET       | /Orders(10248)             |
-| Get all orders for a customer with "ANATR" id.                    | GET       | /Customers('ANATR')/Orders |
-| Get a customer for an order with "10248" id.                      | GET       | /Orders(10248)/Customer    |
+| Get all orders details for an order with "10248" id.              | GET       | /Orders(10248)/Order_Details|
+| Get count of all orders for an amployee with "2" id               | GET       | /Employees(2)/Orders/$count|
+| Get properties OrderDate and ShipCountry of all orders for employee with "2" id| GET       | /Employees(2)/Orders?$select=OrderDate, ShipCountry|
 
 Создайте самостоятельно еще минимум 5 сложных запросов и запишите их в таблицу.
 
