@@ -280,8 +280,8 @@ Console.ReadLine(); // breakpoint #2.3
 | #1.1       | 32208       | 1                 | Main Thread |
 | #1.2       | 32124       | 9                 | Worker Thread|
 | #1.3       | 32208       | 1                 | Main Thread |
-| #2.1       |             |                   |             |
-| #2.2       |             |                   |             |
-| #2.3       |             |                   |             |
+| #2.1       | 15480       | 1                 | Main Thread |
+| #2.2       | 31748       | 9                 | Worker Thread|
+| #2.3       | 31748       | 9                 | Worker Thread
 
 В чем разница между двумя подходами для брейкпоинтов #1.3 и #2.3?
