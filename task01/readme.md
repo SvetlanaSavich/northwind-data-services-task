@@ -277,9 +277,9 @@ Console.ReadLine(); // breakpoint #2.3
 
 | Breakpoint | Thread ID   | Thread Managed ID | Thread Name |
 | ---------- | ----------- | ----------------- | ----------- |
-| #1.1       |             |                   |             |
-| #1.2       |             |                   |             |
-| #1.3       |             |                   |             |
+| #1.1       | 32208       | 1                 | Main Thread |
+| #1.2       | 32124       | 9                 | Worker Thread|
+| #1.3       | 32208       | 1                 | Main Thread |
 | #2.1       |             |                   |             |
 | #2.2       |             |                   |             |
 | #2.3       |             |                   |             |
